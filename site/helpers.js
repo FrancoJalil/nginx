@@ -449,7 +449,7 @@ export function generateImage() {
         const cantidadPost = parseInt(document.getElementById("slider-value").textContent);
         ////console.log("POSTS", cantidadPost);
 
-        axios.post('http://localhost:8000/image-generation/generate', {
+        axios.post('https://mikai-production.up.railway.app/image-generation/generate', {
             subject: JSON.stringify({
                 subject: valuePromptInput,
                 format: format,
@@ -4426,7 +4426,7 @@ export function saveImage() {
     let access_token_g = localStorage.getItem('access');
 
     // Realizar la solicitud POST al backend para guardar las imágenes modificadas
-    axios.post('http://localhost:8000/image-generation/save_images',
+    axios.post('https://mikai-production.up.railway.app/image-generation/save_images',
         JSON.stringify({
             images: modifiedImages,
             images_data: imagesDataFront,

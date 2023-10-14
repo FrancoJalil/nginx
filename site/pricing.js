@@ -49,7 +49,7 @@ function ifNotPremium() {
 function purchase() {
   
   // api paypal
-  axios.get('http://localhost:8000/payments/paypal/subscription')
+  axios.get('https://mikai-production.up.railway.app/payments/paypal/subscription')
     .then(response => {
       // Capturar la respuesta exitosa
       const responseData = response.data;

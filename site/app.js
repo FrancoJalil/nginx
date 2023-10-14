@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Resto del código para enviar la imagen al servidor
             const photoData = e.target.result;
 
-            axios.post('http://localhost:8000/author-photo/', { photo: photoData })
+            axios.post('https://mikai-production.up.railway.app/author-photo/', { photo: photoData })
               .then(response => {
                 // Manejar la respuesta del servidor
                 console.log('Respuesta del servidor:', response.data);

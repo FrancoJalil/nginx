@@ -5,7 +5,7 @@ export function refreshUserTokens() {
     let accessToken = localStorage.getItem('access');
     console.log(accessToken);
     const tokensElement = document.getElementById('tokens');
-    axios.get('http://localhost:8000/get-user-tokens/', {
+    axios.get('https://mikai-production.up.railway.app/get-user-tokens/', {
     }, {
         headers: {
             'Content-Type': 'application/json',

@@ -1,0 +1,22 @@
+
+body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    font-family: Inter, sans-serif;
+    background-color: #13111C;
+    color: rgba(255, 255, 255, 0.5);
+    align-items: center;
+}
+.generate-button {
+    border: none;
+    border-radius: .25rem;
+    background: rgba(149, 92, 242, 0.50);
+    padding: 0.8rem 2rem;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 0.8rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+
+  <link rel="stylesheet" type="text/css" href="basic.css">
+  <link rel="stylesheet" type="text/css" href="styles-login.css">
+
+  <script>
+
+    window.onload = function () {
+      // Ya esta logeado? redireccionarlo al home
+
+      const access_token = localStorage.getItem('access');
+
+      if (access_token) {
+        const url = 'http://localhost:8000/api/token/verify'
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            auth_token: access_token,
+          })
+        }).then(response => {
+          if (!response.ok) {
+            // Token verification failed, stay on the login page
+            console.log('Token verification failed');
+            return Promise.reject("Invalid token");
+          }
+          return response.json();
+        })
+          .then(data => {
+            console.log(data);
+            // Token verification successful, redirect to home page
+            console.log('Token verification successful');
+            window.location.href = "/home";
+          })
+          .catch(error => {
+            console.error('Token verification failed:', error);
+            // Handle token verification error (e.g., display an error message to the user)
+          });
+      }
+
+    }
+
+
+    function statusChangeCallback(response) {
+      console.log('statusChangeCallback');
+      console.log(response);
+
+      if (response.status === 'connected') {
+        const accessToken = response.authResponse.accessToken; // Get the access token from the responseo
+        localStorage.setItem('fbAcessToken', accessToken);
+        //`https://graph.facebook.com/v17.0/17841444988068877?fields=name,profile_picture_url&access_token=`
+
+
+
+        const fbUrlId = `https://graph.facebook.com/v17.0/me/accounts?access_token=${accessToken}`
+
+        let idFb;
+        let fbUrl;
+
+        fetch(fbUrlId)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("datos: ", data)
+
+            console.log('x', data.data[0])
+
+            fbUrl = `https://graph.facebook.com/v17.0/${data.data[0].id}?fields=name&access_token=${accessToken}`
+
+            fetch(fbUrl)
+              .then((responseDos) => responseDos.json())
+              .then((dataDos) => console.log(dataDos));
+
+          });
+
+
+
+
+        testAPI(accessToken); // Pass the access token to testAPI()
+
+        const url = 'http://localhost:8000/auth/facebook/'
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            auth_token: accessToken,
+          })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data)
+            const accessToken = data.access;
+            const refreshToken = data.refresh;
+
+            // Store the tokens in localStorage or sessionStorage for future API requests
+            localStorage.setItem('access', accessToken);
+            localStorage.setItem('refresh', refreshToken);
+
+            window.location.href = "/home";
+
+            // Optionally, you can redirect the user to another page upon successful login
+            //window.location.href = 'file:///home/franco/saas/cm-copilot/home.html'; // Replace this with the URL you want to redirect to
+          })
+          .catch(error => {
+            console.error('Login failed:', error);
+            // Handle login error (e.g., display an error message to the user)
+          });
+
+
+
+      } else {
+        //document.getElementById('status').innerHTML = 'Login ' +
+        //'with facebook.';
+      }
+    }
+
+
+    function checkLoginState() {               // Called when a person is finished with the Login Button.
+      FB.getLoginStatus(function (response) {   // See the onlogin handler
+        statusChangeCallback(response);
+      });
+    }
+
+
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '1020316779125492',
+        xfbml: true,                     // Parse social plugins on this webpage.
+        version: 'v17.0'           // Use this Graph API version for this call.
+      });
+
+
+      FB.getLoginStatus(function (response) {   // Called after the JS SDK has been initialized.
+        statusChangeCallback(response);        // Returns the login status.
+      });
+    };
+    /*
+
+    function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+      console.log('Welcome!  Fetching your information.... ');
+      FB.api('/me', function (response) {
+        console.log('Successful login for: ' + response.name);
+        document.getElementById('status').innerHTML =
+          'Thanks for logging in, ' + response.name + '!';
+      });
+    }*/
+
+    //
+    function testAPI(accessToken) {
+      console.log('Welcome! Fetching your information....');
+      FB.api(
+        '/me/permissions',
+        { access_token: accessToken },
+        function (response) {
+          if (response && !response.error) {
+            console.log(response);
+            const permissions = response.data;
+            console.log('Permissions:');
+            console.log(permissions);
+            // Here you can do whatever you want with the list of permissions,
+            // for example, display them in the HTML document
+            displayPermissions(permissions);
+          } else {
+            console.log('Error fetching permissions:', response.error);
+          }
+        }
+      );
+    }
+
+
+    function displayPermissions(permissions) {
+      const permissionsList = document.getElementById('permissions-list');
+      permissionsList.innerHTML = '<h3>Permisos actuales:</h3>';
+      permissions.forEach(permission => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${permission.permission} - ${permission.status}`;
+        permissionsList.appendChild(listItem);
+      });
+    }
+    /*
+    function requestAdditionalPermissions() {
+      const additionalPermissions = ['pages_show_list', 'instagram_manage_insights', 'instagram_manage_comments',  'ads_management', 'instagram_content_publish', 'pages_read_engagement'];
+
+      FB.login(
+        function (response) {
+          if (response.authResponse) {
+            const accessToken = response.authResponse.accessToken;
+            testAPI(accessToken); // Llamar a testAPI solo si se concede el consentimiento
+            console.log(response);
+            console.log('Permisos adicionales concedidos:', response.authResponse);
+            // Realiza cualquier acción adicional que desees después de obtener los permisos
+          } else {
+            // El usuario ha rechazado el inicio de sesión o ha cerrado el cuadro de diálogo
+            console.log('Inicio de sesión o permisos adicionales rechazados.');
+          }
+        },
+        { scope: additionalPermissions.join(',') }
+      );
+    }
+    */
+
+  //
+
+  </script>
+
+  <div id="status">
+  </div>
+  <!--
+  <fb:login-button scope="
+    public_profile,
+    email,
+    instagram_basic,
+    pages_show_list,
+    ads_management,
+    pages_read_engagement,
+    business_management,
+    instagram_manage_insights,
+    instagram_content_publish" onlogin="checkLoginState();">
+  </fb:login-button>
+-->
+
+</head>
+
+
+<br>
+
+<script>
+  function onSuccess(userInfo) {
+    console.log("Success", userInfo);
+    const url = 'http://localhost:8000/auth/google/'
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userInfo: userInfo
+      })
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error en la solicitud de autenticación con Google');
+        }
+      })
+      .then(data => {
+        localStorage.setItem('access', data.access_token);
+        localStorage.setItem('refresh', data.refresh_token);
+
+        // Obtener la cadena de consulta de la URL actual
+        const queryString = window.location.search;
+
+        // Verificar si la cadena de consulta contiene "?next=pricing"
+        if (queryString.includes('?next=pricing')) {
+          // Hacer algo si se encuentra "?next=pricing" en la URL
+          console.log('La URL contiene "?next=pricing"');
+          window.location.href = "/pricing";
+        } else {
+          window.location.href = "/home";
+        }
+      })
+      .catch(error => {
+        console.error('Error durante la autenticación con Google:', error);
+        // Manejar el error, por ejemplo, mostrar mensaje de error al usuario
+      });
+  }
+</script>
+
+<body>
+  <div class="container-login-form">
+    <h2 class="login-title">Login</h2>
+    <div id="g_id_onload" data-client_id="393246352399-e6manv1gvibqlnpba7lsu0s9ob0patgt.apps.googleusercontent.com"
+      data-context="signin" data-ux_mode="popup" data-login_uri="https://mikai.onrender.com/auth/google/"
+      data-auto_prompt="false" data-callback="onSuccess">
+    </div>
+
+    <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_black" data-text="signin_with"
+      data-size="large" data-logo_alignment="left">
+    </div>
+    <span class="hr"></span>
+    <form class="login-form" method="POST">
+      <input  type="text" id="username" placeholder="Email">
+      <input  type="password" id="password" placeholder="Password">
+      <button  type="button" onclick="login()" class="generate-button">Login</button>
+    </form>
+  </div>
+
+  <script src="https://accounts.google.com/gsi/client" async></script>
+
+  <div id="fb-root"></div>
+  <!-- <button type="button" onclick="requestAdditionalPermissions()">Solicitar permisos adicionales</button> -->
+
+  <!-- Load the JS SDK asynchronously -->
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+  <div id="permissions-list">
+    <!-- Aquí se mostrarán los permisos actuales -->
+  </div>
+
+  <script>
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const url = 'http://localhost:8000/api/token/'; // Replace this with your actual API endpoint URL
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          const accessToken = data.access;
+          const refreshToken = data.refresh;
+
+          // Store the tokens in localStorage or sessionStorage for future API requests
+          localStorage.setItem('access', accessToken);
+          localStorage.setItem('refresh', refreshToken);
+
+          window.location.href = "/home";
+
+          // Optionally, you can redirect the user to another page upon successful login
+          //window.location.href = 'file:///home/franco/saas/cm-copilot/home.html'; // Replace this with the URL you want to redirect to
+        })
+        .catch(error => {
+          console.error('Login failed:', error);
+          // Handle login error (e.g., display an error message to the user)
+        });
+    }
+  </script>
+
+  <script src="router.js"></script>
+
+</body>
+
+</html>

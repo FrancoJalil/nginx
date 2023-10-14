@@ -1,0 +1,237 @@
+body {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.content-container {
+    height: 90vh;
+    color: #f2f2f2;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.extra-container {
+    height: 100vh;
+    color: #f2f2f2;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.extra-container .content {
+    height: 70%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.left {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    border-radius: 1002px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #0C0C0C 100%);
+    width: 45%;
+}
+
+
+.copy {
+    font-weight: 600;
+    text-align: left;
+}
+
+.copy p {
+    width: 90%;
+    background-color: white;
+    color: #121212 !important;
+    padding: 1rem;
+    border-radius: 0rem 1rem 1rem 1rem;
+}
+
+.video {
+    width: 50%;
+}
+
+img {
+    border-radius: 3.25rem;
+    width: 90%;
+}
+
+.menu {
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 5rem;
+    list-style: none;
+}
+
+.menu-border {
+    justify-content: space-between;
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.menu li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+.menu li a {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    transition: 0.2s;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1rem;
+    font-weight: 900;
+    margin: 0 1rem;
+    margin-right: 4rem;
+}
+
+
+.menu li a:hover {
+    color: rgba(255, 255, 255, 1);
+    /* Cambia el color del texto a negro en el hover */
+    transition: 0.2s;
+}
+
+.menu-style {
+    display: inline-flex;
+    justify-content: space-between;
+    text-align: left;
+    padding: 1rem;
+    padding-top: 0.5rem;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.5);
+    /* Color para elementos "no active" */
+}
+
+.first-container h3 {
+    font-size: 42px;
+    padding: 1rem 0rem;
+}
+
+.content-container p {
+    margin: 0.5rem 0rem;
+    color: white;
+    opacity: 95%;
+    font-weight: 400;
+}
+
+.gradient {
+    background: linear-gradient(193deg, #00D1FF 0%, #EB00FF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+
+.generate-button {
+    margin: 2rem 0rem;
+    border-radius: 50px;
+    background: linear-gradient(81.02deg, rgb(250, 85, 96) -23.47%, rgb(177, 75, 244) 45.52%, rgb(77, 145, 255) 114.8%);
+}
+
+
+.extra-container {
+    height: 100vh;
+    color: #f2f2f2;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.extra-container .bloque {
+    display: flex;
+    flex-direction: column;
+    background-color: #121212;
+    height: fit-content;
+    width: 60%;
+    padding: 2rem 3rem;
+    border-radius: 3.25rem;
+    justify-content: space-between;
+}
+
+.extra-container .bloque .content {
+    display: flex;
+    align-items: start;
+    flex-direction: row;
+    text-align: left;
+}
+
+.extra-container .bloque .content .container-right {
+    display: flex;
+    width: 50%;
+}
+
+.extra-container .bloque .content .container-right img {
+    opacity: 0.05;
+}
+
+.extra-container .bloque .content .container-left {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    height: 65%;
+    justify-content: space-between;
+
+}
+
+.extra-container .bloque .content .container-left h4 {
+    padding-bottom: 1rem;
+    font-size: 35px;
+    background: linear-gradient(81.02deg, rgb(250, 85, 96) -23.47%, rgb(177, 75, 244) 45.52%, rgb(77, 145, 255) 114.8%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+
+.extra-container .bloque .content .container-left .price-container {
+    display: flex;
+    font-size: 35px;
+}
+
+.extra-container .bloque .content .container-left .copy-container {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 3rem 0rem;
+}
+
+.extra-container .bloque .content .container-left .copy-container p {
+    padding: .5rem 0rem;
+}
+
+.extra-container .bloque .footer-pricing {
+    display: flex;
+    align-items: center;
+
+    justify-content: space-between;
+    width: 100%;
+}
+
+.extra-container .bloque .footer-pricing p {
+    text-align: left;
+}
+
+.extra-container .bloque .footer-pricing button {
+    font-size: 15px;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="styles-my-gen.css">
+  <title>My Generations</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+</head>
+
+<body>
+
+  <div class="menu-border">
+    <div class="logo-container">
+      <div class="logo">
+        <img src="https://res.cloudinary.com/dlqpkf6fd/image/upload/v1693523760/logo_xereu3.png" alt="" style="width: 40px; opacity: 0.9">
+      </div>
+
+    </div>
+    <ul class="menu">
+
+
+      <li>
+        <a href="/home">Generate</a>
+
+      </li>
+      <li>
+        <a href="/my-generations">My Generations</a>
+      </li>
+
+      <li>
+        <div class="tokens">
+          <a href="/profile">
+              <p>Tokens: <span id="tokens">0</span></p>
+              <img id="photo" src="" alt="" style="width: 30px; border-radius: 3.25rem;">
+            </a>
+          </div>
+      </li>
+    </ul>
+
+  </div>
+
+
+  <div class="content-container" id="content-container">
+    <h1>My Generations</h1>
+
+
+
+    <div class="container-of-generateds" id="container-of-generateds">
+
+
+    </div>
+
+
+  </div>
+
+  <script src="axios.js"></script>
+
+  <script type="module" src="./context.js"></script>
+  <script type="module" src="./my-generations.js" defer></script>
+  <script>
+    // Obtenemos la URL actual
+    var url = window.location.href;
+
+    // Obtenemos todos los enlaces del menú
+    var menuLinks = document.querySelectorAll(".menu a");
+
+
+    // Recorremos los enlaces para verificar si alguno coincide con la URL actual
+    menuLinks.forEach(function (link) {
+      if (link.href === url) {
+        // Agregamos la clase "active" al elemento "li" padre del enlace
+        link.parentElement.classList.add("active");
+      }
+    });
+  </script>
+
+
+  <script src="router.js"></script>
+
+</body>
+
+</html>

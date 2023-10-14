@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+body {
+    background: radial-gradient(50% 50.00% at 50% 50.00%, #23005C 0%, #010101 100%);
+    display: flex;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+
+.container-login-form {
+    color: #F2F2F2;
+    background-color: #121212;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    border-radius: 3.75rem;
+    width: 40vh;
+    padding: 3rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+}
+
+.login-form input {
+    margin: 1rem 0rem;
+}
+
+.login-form button {
+    margin: 1rem 0rem;
+}
+
+h2 .login-title {
+    text-align: left;
+}
+
+.login-form input {
+    height: 2rem;
+    border-radius: 0.3rem;
+    border: none;
+    padding: 0.4rem;
+    font-family: Inter, sans-serif;
+    width: 90%;
+}
+
+.login-form button {
+    cursor: pointer;
+    border-radius: 3.25rem;
+    width: 50%;
+}
+
+
+.hr {
+    border-top: 0.1rem solid rgba(255, 255, 255, 0.2);
+    margin-top: 0.8rem;
+}

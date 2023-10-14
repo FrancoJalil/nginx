@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing</title>
+  <link rel="stylesheet" type="text/css" href="basic.css">
+  <link rel="stylesheet" type="text/css" href="../styles.css">
+  <link rel="stylesheet" type="text/css" href="styles-info.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+  <script src="axios.js"></script>
+
+  <div class="first-container">
+    <div class="extra-container">
+      <div class="content">
+        <h3>Select the best pricing for <span class="gradient">you</span></h3>
+        <img src="https://i.blogs.es/2df4c2/midjourney-arte/1366_2000.jpg" alt="">
+        <div id="paypal-button-container-P-5MC57938GY016445NMTLGJ2Y"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./pricing/pricing.js"></script>
+
+
+
+
+  <script
+    src="https://www.paypal.com/sdk/js?client-id=AUdCA_5ZNNzwcoNBAQgbwEpvGIAc8nkX2jZI2505mz1WUDBkm4GzXgg7ZsbOv2Ca4ig_hjmAAP9aNztB&vault=true&intent=subscription"
+    data-sdk-integration-source="button-factory"></script>
+  <script>
+    paypal.Buttons({
+      style: {
+        shape: 'pill',
+        color: 'silver',
+        layout: 'vertical',
+        label: 'subscribe'
+      },
+      createSubscription: function (data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-5MC57938GY016445NMTLGJ2Y'
+        });
+      },
+      onApprove: function (data, actions) {
+        // You can add optional success message for the subscriber here
+        alert(data.subscriptionID);
+        // enviar data.subscriptionID al backend
+        axios.post('http://localhost:8000/payments/paypal/subscription/on-success', {
+          subscriptionID: data.subscriptionID
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + String(localStorage.getItem('access'))
+          }
+        })
+          .then(response => {
+            // Capturar la respuesta exitosa
+            const responseData = response.data;
+            console.log('Respuesta exitosa:', responseData);
+
+            // Aquí puedes hacer lo que necesites con los datos de la respuesta
+          })
+          .catch(error => {
+            // Capturar los errores
+            console.error('Error en la solicitud:', error);
+            // Aquí puedes manejar el error de alguna manera, por ejemplo, mostrar un mensaje al usuario
+          });
+
+
+      }
+    }).render('#paypal-button-container-P-5MC57938GY016445NMTLGJ2Y'); // Renders the PayPal button
+  </script>
+</body>
+
+</html>

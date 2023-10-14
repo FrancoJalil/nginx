@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generar Posts</title>
+  <link rel="icon" type="image/x-icon"
+    href="https://res.cloudinary.com/dlqpkf6fd/image/upload/v1693523760/logo_xereu3.png">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Anton&family=League+Gothic&family=Montserrat:wght@500&family=Poppins:wght@300&family=Rock+Salt&display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="menu-border">
+    <div class="logo-container">
+      <div class="logo">
+        <img src="https://res.cloudinary.com/dlqpkf6fd/image/upload/v1693523760/logo_xereu3.png" alt=""
+          style="width: 40px; opacity: 0.9">
+      </div>
+    </div>
+    <ul class="menu">
+
+
+      <li>
+        <a href="/home">Generate Posts</a>
+      </li>
+      <li>
+        <a href="/">AI Reels (Pronto)</a>
+      </li>
+      <li>
+        <a href="/my-generations">My Generations</a>
+      </li>
+
+
+      <li>
+
+        <div class="tokens">
+          <a href="/profile">
+            <p>Tokens: <span id="tokens">0</span></p>
+            <img id="photo" src="" alt="" style="width: 30px; border-radius: 3.25rem;">
+          </a>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+
+
+
+  <div class="container" id="container-content">
+
+    <form id="firstInputUser">
+
+      <div class="format-container">
+
+        <div id="message-container"></div>
+
+        <h3 style="font-size: 5rem; color:white">🦥</h3>
+
+        <h2 class="format-title">AI Post Generation</h2>
+
+        <div class="prompt-input-container">
+          <input type="text" autocomplete="off" autofocus name="prompt-input" class="prompt-input" id="prompt-input"
+            placeholder="Type a prompt... // Ej: Segunda guerra mundial">
+        </div>
+
+        <div class="formats-container">
+          <div class="style-container">
+            <h4 id="titleStyleGenerate"></h4>
+            <div class="images-container">
+              <div id="allImagesGenerate" class="all-images">
+                <textarea id="descPostTA" class="text-field-mg" readonly="true" name="" id="" cols="30"
+                  rows="10"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-style">
+
+            <div class="menu-edit">
+
+              <button type="button" class="format-button selected" id="selectable-button-author">Author</button>
+              <div type="button" class="format-button button-input-image" id="author-modal"
+                style="display: inline-flex;">
+                <div class="container-button">
+                  <input type="file" id="input-file" accept="image/*" class="input-author-photo" hidden>
+                  <label for="input-file" class="input-author-photo"></label>
+                  <img src="https://lh3.googleusercontent.com/a/AAcHTtdz95hIQaukNLY-s5TKfnSHhndbOGptfK2FM1B0bcu1=s96-c"
+                    id="authorPhoto" alt="" style="width: 20px;">
+                  <p class="arroba">@</p> <input type="text" id="authorName" placeholder="username">
+                  <button type="button" class="info" id="info-button">i</button>
+                  <div id="modalInfo" class="modal-info">
+                    <div class="modal-info-content">
+
+                      <p>Debes subir una foto 1024x1024px y escribir tu usuario para que se muestre en los posts.</p>
+                      <button id="closeModalInfoBtn">Ok</button>
+                    </div>
+                  </div>
+                </div>
+                <p id="imgMsg" style="display: none;">La imagen debe ser un cuadrado (ej: 500x500px)</p>
+              </div>
+
+
+
+            </div>
+
+            <div class="change-style-container">
+              <button type="button" class="format-button" id="chooseStyle">
+                Change style
+              </button>
+              <span class="choosed-style" id="chosedStyle"> (4 Tips) </span>
+            </div>
+
+          </div>
+
+          <div class="slider-container">
+            <button type="button" id="decrement">-</button>
+            <input disabled type="range" id="slider" min="1" max="7" value="4">
+            <button type="button" id="increment">+</button>
+            <span id="slider-value">1</span>&nbspPosts
+            <span class="token-cost">= <span id="numTokens">1</span> Tokens</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="container-title-input">
+
+        <div class="prompt-title-container">
+          <h2 class="prompt-title">Prompt</h2>
+        </div>
+
+
+
+        <button type="submit" class="generate-button" id="generate-button">Generate</button>
+    </form>
+
+  </div>
+
+
+
+  </div>
+
+  <div class="contLoader" id="contLoader">
+
+  <div id="loadingSkeleton" class="loading-skeleton">
+    <div id="headingElement" class="loader"></div>
+    <p id="contador" style="margin-top: 1rem;">0.00</p>
+    <p style="color: rgb(185, 185, 185)" id="loadText">(120s aprox)</p>
+  </div>
+
+</div>
+
+  <div id="generated-container">
+
+    <div id="imageContainer"></div>
+
+    <div id="canvasContainer"></div>
+
+    <div id="menu-canvas">
+
+      <div id="container-buttons-generated">
+        <button id="modo-edicion-button" class="other-buttons">Modo Edición</button>
+        <button id='save-image-button' class="other-buttons">Guardar</button>
+      </div>
+    </div>
+
+    <div id="container-editable">
+      <div id="select-all-canvas-cont"><label class="select-all-canvas" id="select-all-canvas"><input
+            id="checkbox-input" type="checkbox">Seleccionar todos</label></div>
+
+      <input type="text" id="textInput" placeholder="Ingrese el texto"></input>
+      <button id='add-text-button' class="generate-button">Agregar Texto</button>
+      <button id='delete-text-button' class="generate-button">Borrar Texto</button>
+      <button id='toggle-bold-button' class="generate-button">Negrita</button>
+      <button id='toggle-border-button' class="generate-button">Borde</button>
+      <button id='delete-canvas' class="generate-button">Borrar Canvas</button>
+      <input id='colorPicker' type="color" id="colorPicker" value="#ffffff">
+
+      <select id='fontSelect' id="fontSelect">
+        <option value="Arial">Arial</option>
+        <option value="Verdana">Verdana</option>
+        <option value="Helvetica">Helvetica</option>
+        <option value="Courier New">Courier New</option>
+        <option value="League Gothic">League Gothic</option>
+        <option value="Poppins">Poppins Light</option>
+        <option value="Lora">Lora</option>
+      </select>
+    </div>
+
+
+
+
+    <ul id="imageList"></ul>
+  </div>
+
+
+  <div class="footer" id="footer" style="display: none;"></div>
+  <!-- Load fonts -->
+  <span style="visibility: hidden;">
+    <span style="font-family: 'League Gothic', sans-serif; font-size: 1px;">Mikai</span>
+    <span style="font-family: 'Poppins', sans-serif; font-size: 1px;">Mikai</span>
+    <span style="font-family: 'Lora', serif; font-size: 1px;">Lora</span>
+  </span>
+
+
+  <!-- Botón para abrir el modal de confirmación 
+  <button onclick="showConfirmationModal()">Abrir Modal de Confirmación</button>
+  -->
+
+  <!-- Contenedor del modal de confirmación -->
+  <div id="confirmationModal" class="modal">
+
+    <div class="modal-content" id="modalContent">
+      <div class="header-modal">
+        <select style="order: 0;" name="" id="selectPost">
+          <option value="Carrusel">CARRUSEL</option>
+          <option value="Solo">SOLO</option>
+        </select>
+        <button class="generate-button" id="cancel-button-modal">Cancelar</button>
+      </div>
+      <h2 id="confirmationModalTitle"></h2>
+      <p id="confirmationModalContent"></p>
+      <button class="generate-button" id="confirm-button-modal">Confirmar</button>
+
+
+    </div>
+
+    <div class="modal-content edition" id="modalContentEdition">
+
+      <h2 id="confirmationModalTitleEdition"></h2>
+      <p id="confirmationModalContentEdition"></p>
+      <button class="generate-button" id="confirm-button-modal-edition">Confirmar</button>
+      <button class="generate-button" id="cancel-button-modal-edition">Cancelar</button>
+    </div>
+  </div>
+
+
+
+
+  </div>
+
+  <script src="axios.js"></script>
+  <script type="module" src="./context.js"></script>
+
+  <script type="module" src="./app.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+
+  <script>
+    // Obtenemos la URL actual
+    var url = window.location.href;
+
+    // Obtenemos todos los enlaces del menú
+    var menuLinks = document.querySelectorAll(".menu a");
+
+
+    // Recorremos los enlaces para verificar si alguno coincide con la URL actual
+    menuLinks.forEach(function (link) {
+      if (link.href === url) {
+        // Agregamos la clase "active" al elemento "li" padre del enlace
+        link.parentElement.classList.add("active");
+      }
+    });
+  </script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+
+</script>
+
+<script src="router.js"></script>
+</body>
+
+</html>

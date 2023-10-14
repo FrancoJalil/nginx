@@ -15,7 +15,7 @@ function loadPage(url) {
   function handleNavigation() {
     const path = window.location.pathname;
     console.log("path", path)
-    const url = path === '/' ? '/index.html' : `${path}.html`;
+    const url = path === '/' ? '/home.html' : `${path}.html`;
     console.log("url", url)
   
     //loadPage(url);

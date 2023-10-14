@@ -1,6 +1,6 @@
-import { closeConfirmationModal } from '../helpers.js'
-import { BLACK_MARK, TRANSPARENT_MARK, AUTHOR_PHRASE_1, INFORMARTIVO, SABIAS_QUE, AUTHOR_PHRASE_2, TIPS, DATO_CURIOSO } from "../utils/styles.js";
-import { updateSliderValue } from "../utils/slicingCounter.js"
+import { closeConfirmationModal } from './helpers.js'
+import { BLACK_MARK, TRANSPARENT_MARK, AUTHOR_PHRASE_1, INFORMARTIVO, SABIAS_QUE, AUTHOR_PHRASE_2, TIPS, DATO_CURIOSO } from "./styles.js";
+import { updateSliderValue } from "./slicingCounter.js"
 
 let creado = false;
 

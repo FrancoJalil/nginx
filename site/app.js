@@ -1,9 +1,9 @@
 // app.js
 import { isSelectedCanvas, confirmAction, closeConfirmationModal, showConfirmationModalEdition, generateImage, deselectableAllCanvas, reactivarCanvas, toggleClickedStyle, saveImage, showConfirmationModal, deleteCanvas, modoEdicion, addPaddingIfNeeded, toggleBorder, toggleBold, addText, changeTextColor, changeTextFont, deleteText, selectAllCanvas } from './helpers.js';
-import { putSelectedStyle } from './modals/chooseStyle.js';
-import { BLACK_MARK, TRANSPARENT_MARK, AUTHOR_PHRASE_1 } from "../utils/styles.js";
-import { updateSliderValue } from "./utils/slicingCounter.js"
-import { mostrarAlert } from "./utils/alert.js"
+import { putSelectedStyle } from './chooseStyle.js';
+import { BLACK_MARK, TRANSPARENT_MARK, AUTHOR_PHRASE_1 } from "./styles.js";
+import { updateSliderValue } from "./slicingCounter.js"
+import { mostrarAlert } from "./alert.js"
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', () => {

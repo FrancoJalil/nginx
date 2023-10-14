@@ -1,8 +1,8 @@
-import { chooseStyle, stylesJSON } from "./modals/chooseStyle.js";
-import { BLACK_MARK, TRANSPARENT_MARK, AUTHOR_PHRASE_1, SABIAS_QUE, AUTHOR_PHRASE_2, INFORMARTIVO, TIPS } from "../utils/styles.js";
-import { refreshUserTokens } from "./utils/refreshUserTokens.js";
-import { DATO_CURIOSO } from "./utils/styles.js";
-import { activarContador, detenerContador } from "./utils/contador.js";
+import { chooseStyle, stylesJSON } from "./chooseStyle.js";
+import { BLACK_MARK, TRANSPARENT_MARK, AUTHOR_PHRASE_1, SABIAS_QUE, AUTHOR_PHRASE_2, INFORMARTIVO, TIPS } from "./styles.js";
+import { refreshUserTokens } from "./refreshUserTokens.js";
+import { DATO_CURIOSO } from "./styles.js";
+import { activarContador, detenerContador } from "./contador.js";
 
 // helpers.js
 

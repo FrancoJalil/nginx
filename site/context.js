@@ -1,4 +1,4 @@
-import { refreshUserTokens  } from "./utils/refreshUserTokens.js";
+import { refreshUserTokens  } from "./refreshUserTokens.js";
 
 function decodeJWTAndGetUsername(jwtToken) {
   // In a real application, use the jsonwebtoken library to decode the JWT

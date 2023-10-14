@@ -4,4 +4,4 @@ FROM nginx:alpine
 COPY site /usr/share/nginx/html
 
 # Copia el archivo de configuración personalizado
-#COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf

@@ -7,5 +7,8 @@ COPY site /usr/share/nginx/html
 COPY redirects.sh /usr/share/nginx/html/redirects.sh
 RUN chmod +x /usr/share/nginx/html/redirects.sh
 
-# Ejecuta el script antes de iniciar Nginx
-CMD ["/usr/share/nginx/html/redirects.sh", "nginx", "-g", "daemon off;"]
+# Ejecuta el script durante la construcción de la imagen
+RUN /usr/share/nginx/html/redirects.sh
+
+# Inicia Nginx
+CMD ["nginx", "-g", "daemon off;"]

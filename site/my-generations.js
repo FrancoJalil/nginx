@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Llamada a la API y procesamiento de datos como en tu código anterior...
   let access_token_g = localStorage.getItem('access');
 
-  axios.get('http://localhost:8000/image-generation/get_saved_images', {
+  axios.get('https://mikai-production.up.railway.app/image-generation/get_saved_images', {
     headers: {
       'Authorization': 'Bearer ' + String(access_token_g)
     }

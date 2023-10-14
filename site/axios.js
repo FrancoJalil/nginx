@@ -1,5 +1,5 @@
 
-const refreshTokenEndpoint = 'http://localhost:8000/api/token/refresh/';
+const refreshTokenEndpoint = 'https://mikai-production.up.railway.app/api/token/refresh/';
 let accessToken = localStorage.getItem('access');
 let refreshToken = localStorage.getItem('refresh');
 
